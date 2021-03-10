@@ -11,7 +11,7 @@ const HourlyWeather = ({forecast}) => {
             keyExtractor={(item, index) => index.toString()}
             renderItem={(hour) => {
               const weather = hour.item.weather[0];
-              var dt = new Date(hour.item.dt * 1000);
+              let dt = new Date(hour.item.dt * 1000);
               const hours = dt.getHours();
               const minutes = dt.getMinutes()
               return <HourCard >

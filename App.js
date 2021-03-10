@@ -19,10 +19,17 @@ import { Image, ActivityIndicator, SafeAreaView, ScrollView, Alert, RefreshContr
 import * as Location from 'expo-location';
 import HourlyWeather from "./app/components/HourlyWeather";
 import FutureWeather from "./app/components/FutureWeather";
-import photo from './assets/weather/cloud.jpg'
+import clouds from './assets/weather/Clouds.jpg'
+import rain from "./assets/weather/Rain.jpg"
+import clear from './assets/weather/Clear.jpg'
+import drizzle from "./assets/weather/Drizzle.jpg"
+import haze from './assets/weather/Haze.jpg'
+import mist from "./assets/weather/mist.jpg"
+import snow from './assets/weather/snow.jpg'
+import thunder from "./assets/weather/thunderstorm.jpg"
 import WeatherWidget from "./app/components/WeatherWidget";
+import { weatherConditions } from "./app/utils/WeatherConditions";
 let url = `https://api.openweathermap.org/data/2.5/onecall?&units=metric&exclude=minutely&appid=${WEATHER_API_KEY}`;
-
 
 const App = () => {
 
@@ -64,9 +71,43 @@ const App = () => {
   }
 
   const current = forecast.current.weather[0];
+  const back = () => {
+    if(typeof current.main != "undefined"){
+      switch (current.main) {
+        case "Clouds":
+          return clouds
+          break;
+        case "Clear":
+          return clear
+          break;
+        case "Rain":
+          return rain
+          break;
+        case "Snow":
+          return snow
+          break;
+        case "Thunderstorm":
+          return thunder
+          break;
+        case "Drizzle":
+          return drizzle
+          break;
+        case "Haze":
+          return haze
+          break;
+        case "Mist":
+          return mist
+          break;
+      
+        default:
+          return clear
+          break;
+      }
+    }
+  }
   return (
     <Theme>
-       <ImageBackground source={photo} style={{ height: "100%", width: "100%" }}>
+       <ImageBackground source={back()} style={{ height: "100%", width: "100%" }}>
      <SafeAreaView style={styles.container}> 
           <ScrollView 
             refreshControl={
