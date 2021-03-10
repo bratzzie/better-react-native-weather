@@ -7,7 +7,7 @@ import { LinearGradient } from 'expo-linear-gradient'
 
 const MainWeather = (props) => {
 
-    
+
     const current = props.forecast.current.weather[0];
 
     return (
@@ -17,15 +17,13 @@ const MainWeather = (props) => {
         <Container>
           
       <Wrapper>
-
-     
                 <Location>Zaporizhzhia</Location>
                  <Row>
                     <Temp>{Math.round(props.forecast.current.temp)}</Temp>
                     <Symb>°</Symb> 
                    
                 </Row>
-                 <WeatherName>{props.forecast.current.weather.main}</WeatherName>
+                 <WeatherName>{props.forecast.current.weather.description}</WeatherName>
                </Wrapper>
 
         </Container>
@@ -38,7 +36,7 @@ const Container = styled.View`
 flex: 0.6;
 
 padding-top: 80px;
-background-color: #000;
+
 `
 
 const Wrapper = styled.View`
@@ -54,7 +52,7 @@ text-align: center;
 const WeatherName = styled.Text`
 font-size: 25px;
 color: #f0f1f2;
-color: #000;
+
 
 text-align: center;
 `
@@ -66,7 +64,7 @@ justify-content: center;
 `
 const Temp = styled.Text`
 font-size: 150px;
-font-weight: 700;
+font-weight: 600;
 color: #fff;
 
 text-align: center;
@@ -75,9 +73,9 @@ text-align: center;
 const Symb = styled.Text`
 font-variant: small-caps;
 color: #fff;
-font-weight: 700;
+font-weight: 500;
 font-size: 120px;
-transform: translate(-20px, 0px);
+transform: translate(-10px, 0px);
 
 text-align: center;
 `

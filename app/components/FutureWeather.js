@@ -1,34 +1,36 @@
 import React from 'react'
-import { View, Text, TextInput, Image } from 'react-native'
+import { View, Text, TextInput, Image, TouchableOpacity } from 'react-native'
 import styled from 'styled-components/native'
 import photo from '../../assets/weather_icons/cloud.png'
 const FutureWeather = ({forecast}) => {
+    let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     return (
         <Container>
-             <Text >Next 3 Days</Text>
-        {forecast.daily.slice(0,3).map(d => { 
+       {forecast.daily.slice(0,3).map(d => { 
           const weather = d.weather[0];
-          var dt = new Date(d.dt * 1000);
+          let dt = new Date(d.dt * 1000);
           return <WeatherDay key={d.dt}>
               <Column>
                     <Image
-                    
+                    style={{height: 40, width: 40}}
                     source={{
                         uri: `http://openweathermap.org/img/wn/${weather.icon}@4x.png`,
                     }}
                     />
-                    <Day>{dt.toLocaleDateString()}</Day>
-                    <Name> ⭒ {weather.description}</Name>
+                    <Day>{days[dt.getDay()]}</Day>
+                    <Name> ⭒ {weather.main}</Name>
               </Column>
 
               <Column>  
-                    <HighestTemp>{Math.round(d.temp.max)}°C</HighestTemp>
-                    <LowestTemp> / {Math.round(d.temp.min)}°C</LowestTemp>
+                    <HighestTemp>{Math.round(d.temp.max)}°</HighestTemp>
+                    <LowestTemp> / {Math.round(d.temp.min)}°</LowestTemp>
               </Column>
            </WeatherDay>
         })}
 
-          
+          {/* <TouchableOpacity>
+              <Text>5-day forecast</Text>
+          </TouchableOpacity> */}
         </Container>
     )
 }
@@ -37,7 +39,7 @@ export default FutureWeather
 const Container = styled.View`
 flex: 0.4;
 background-color: transparent;
-padding: 50px;
+padding: 50px 20px;
 justify-content: center;
 `
 

@@ -19,7 +19,8 @@ import { Image, ActivityIndicator, SafeAreaView, ScrollView, Alert, RefreshContr
 import * as Location from 'expo-location';
 import HourlyWeather from "./app/components/HourlyWeather";
 import FutureWeather from "./app/components/FutureWeather";
-
+import photo from './assets/weather/cloud.jpg'
+import WeatherWidget from "./app/components/WeatherWidget";
 let url = `https://api.openweathermap.org/data/2.5/onecall?&units=metric&exclude=minutely&appid=${WEATHER_API_KEY}`;
 
 
@@ -64,29 +65,33 @@ const App = () => {
 
   const current = forecast.current.weather[0];
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView 
-        refreshControl={
-          <RefreshControl 
-            onRefresh={() => {  loadForecast() }} 
-            refreshing={refreshing}
-          />}
-      >
-    <MainWeather forecast={forecast} />
+    <Theme>
+       <ImageBackground source={photo} style={{ height: "100%", width: "100%" }}>
+     <SafeAreaView style={styles.container}> 
+          <ScrollView 
+            refreshControl={
+              <RefreshControl 
+                onRefresh={() => {  loadForecast() }} 
+                refreshing={refreshing}
+              />}
+            >
+        <MainWeather forecast={forecast} />
 
-
-        <HourlyWeather forecast={forecast} />
-
-       <FutureWeather forecast={forecast} />
-      </ScrollView>
-    </SafeAreaView>
+            <FutureWeather forecast={forecast} />
+            <HourlyWeather forecast={forecast} />
+            <WeatherWidget forecast={forecast} />
+          </ScrollView>
+      
+      </SafeAreaView>  
+      </ImageBackground>
+    </Theme>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'rgba(0,0,0, 0.4)',
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
@@ -98,7 +103,7 @@ const styles = StyleSheet.create({
 
 export default App;
 //<Theme>
-    //   <ImageBackground source={photo} style={{ height: "100%", width: "100%" }}>
+    //  
     //     <View style={styles.container}>
     //       <View style={styles.container}>
     //          <KeyboardAvoidingView
