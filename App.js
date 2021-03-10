@@ -28,7 +28,7 @@ import mist from "./assets/weather/mist.jpg"
 import snow from './assets/weather/snow.jpg'
 import thunder from "./assets/weather/thunderstorm.jpg"
 import WeatherWidget from "./app/components/WeatherWidget";
-import { weatherConditions } from "./app/utils/WeatherConditions";
+import ManageLocation from "./app/screens/ManageLocation";
 let url = `https://api.openweathermap.org/data/2.5/onecall?&units=metric&exclude=minutely&appid=${WEATHER_API_KEY}`;
 
 const App = () => {
@@ -116,11 +116,12 @@ const App = () => {
                 refreshing={refreshing}
               />}
             >
-        <MainWeather forecast={forecast} />
-
+        {/* <MainWeather forecast={forecast} />
+            
             <FutureWeather forecast={forecast} />
             <HourlyWeather forecast={forecast} />
-            <WeatherWidget forecast={forecast} />
+            <WeatherWidget forecast={forecast} /> */}
+            <ManageLocation />
           </ScrollView>
       
       </SafeAreaView>  
