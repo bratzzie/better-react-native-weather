@@ -1,8 +1,17 @@
-import React from "react";
-import { View, Text, TextInput, Image, TouchableOpacity } from "react-native";
+import React, { useEffect } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  Image,
+  TouchableOpacity,
+  Alert,
+  ActivityIndicator,
+  SafeAreaView,
+} from "react-native";
 import styled from "styled-components/native";
-import photo from "../../assets/weather_icons/cloud.png";
-const FutureWeather = ({ forecast }) => {
+
+const SingleFuture = ({ anotherForecast }) => {
   let days = [
     "Sunday",
     "Monday",
@@ -14,7 +23,7 @@ const FutureWeather = ({ forecast }) => {
   ];
   return (
     <Container>
-      {forecast.daily.slice(0, 3).map((d) => {
+      {anotherForecast.daily.slice(0, 3).map((d) => {
         const weather = d.weather[0];
         let dt = new Date(d.dt * 1000);
         return (
@@ -45,7 +54,7 @@ const FutureWeather = ({ forecast }) => {
   );
 };
 
-export default FutureWeather;
+export default SingleFuture;
 const Container = styled.View`
   flex: 0.4;
   background-color: transparent;

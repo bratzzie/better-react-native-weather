@@ -2,13 +2,13 @@ import React from "react";
 import { View, Text, FlatList, Image } from "react-native";
 import styled from "styled-components/native";
 
-const HourlyWeather = ({ forecast }) => {
+const SingleHour = ({ anotherForecast }) => {
   return (
     <View>
       <FlatList
         horizontal
         showsHorizontalScrollIndicator={false}
-        data={forecast.hourly.slice(0, 24)}
+        data={anotherForecast.hourly.slice(0, 24)}
         keyExtractor={(item, index) => index.toString()}
         renderItem={(hour) => {
           const weather = hour.item.weather[0];
@@ -36,7 +36,7 @@ const HourlyWeather = ({ forecast }) => {
   );
 };
 
-export default HourlyWeather;
+export default SingleHour;
 const HourCard = styled.View`
   margin: 25px;
   justify-content: center;

@@ -5,53 +5,49 @@ import styled from "styled-components/native";
 import sunrise from "../../assets/weather_icons/sunrise.png";
 import sunset from "../../assets/weather_icons/sunset.png";
 
-const WeatherWidget = ({ forecast }) => {
-  let dt = new Date(forecast.current.sunrise * 1000);
-  const hours = dt.getHours();
-  const minutes = dt.getMinutes();
-
+const SingleWidget = ({ forecast }) => {
   return (
     <Wrapper>
       <Text></Text>
       <Column>
         <Image source={sunrise} style={{ width: 50, height: 50 }} />
         <Sun>
-          {new Date(forecast.current.sunrise * 1000).toLocaleTimeString([], {
+          {new Date(forecast.sys.sunrise * 1000).toLocaleTimeString([], {
             hour: "2-digit",
             minute: "2-digit",
           })}
         </Sun>
         <Title>Real feel</Title>
-        <Detail>{forecast.current.feels_like}°C</Detail>
+        <Detail>{forecast.main.feels_like}°C</Detail>
 
         <Title>Clouds</Title>
-        <Detail>{forecast.current.clouds}%</Detail>
+        <Detail>{forecast.clouds.all}%</Detail>
         <Title>Wind speed</Title>
-        <Detail>{forecast.current.wind_speed}km/h</Detail>
+        <Detail>{forecast.wind.speed}km/h</Detail>
       </Column>
 
       <Column>
         <Image source={sunset} style={{ width: 50, height: 50 }} />
         <Sun>
-          {new Date(forecast.current.sunset * 1000).toLocaleTimeString([], {
+          {new Date(forecast.sys.sunset * 1000).toLocaleTimeString([], {
             hour: "2-digit",
             minute: "2-digit",
           })}
         </Sun>
         <Title>Humidity</Title>
-        <Detail>{forecast.current.humidity}%</Detail>
+        <Detail>{forecast.main.humidity}%</Detail>
 
         <Title>Pressure</Title>
-        <Detail>{forecast.current.pressure}hPa</Detail>
+        <Detail>{forecast.main.pressure}hPa</Detail>
 
-        <Title>UV index</Title>
-        <Detail>{forecast.current.uvi}</Detail>
+        <Title>Visibility</Title>
+        <Detail>{forecast.visibility}m</Detail>
       </Column>
     </Wrapper>
   );
 };
 
-export default WeatherWidget;
+export default SingleWidget;
 
 const Wrapper = styled.View`
   width: 100%;
