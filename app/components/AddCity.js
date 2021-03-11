@@ -19,7 +19,7 @@ function AddCity(){
     if(!response.ok) {
       Alert.alert(`Error retrieving weather data: ${data.message}`); 
     } else {
-        context.addCity(name, data.main.temp);
+        context.addCity(name, data.main.temp, data);
         setName('')
         Keyboard.dismiss();
         

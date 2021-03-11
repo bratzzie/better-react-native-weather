@@ -81,22 +81,37 @@
 //   },
 // });
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Alert } from 'react-native'
 import AddCity from '../components/AddCity';
 import List from '../components/List'
 export const WeatherContext = React.createContext({
-    cities: [],
-    addCity: (name, temperature) => { },
+    cities: [], // array
+    addCity: (name, temperature, data) => { }, // function
   });
 
 
  
 
 export default function ManageLocation() {
-   const [cities, setCities] = React.useState([]);
-  const addCity = (name, temperature) => {
-    const newCity = { name, temperature };
-    setCities(prevCities => [...prevCities, { name, temperature }]);
+   const [cities, setCities] = React.useState([]); // array and function
+
+
+   function cityExist(name) {
+    return cities.some(function(el) {
+      return el.name === name;
+    }); 
+  }
+  const addCity = (name, temperature, data) => {
+    if(cityExist(name.trim()) ){
+      Alert.alert("Location is already in the list! :)")}
+      else{
+        const newCity = { name, temperature, data };
+       setCities(prevCities => [...prevCities, { name, temperature, data }]);
+ 
+      }
+   
+    
+   
   };
     return (
         <WeatherContext.Provider value={{
