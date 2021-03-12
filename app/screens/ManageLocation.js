@@ -130,4 +130,5 @@ const Title = styled.Text`
   font-size: 35px;
   font-weight: 400;
   padding-left: 20px;
+  padding-top: 40px;
 `;

@@ -18,7 +18,7 @@ const SingleWidget = ({ forecast }) => {
           })}
         </Sun>
         <Title>Real feel</Title>
-        <Detail>{forecast.main.feels_like}°C</Detail>
+        <Detail>{Math.round(forecast.main.feels_like)}°C</Detail>
 
         <Title>Clouds</Title>
         <Detail>{forecast.clouds.all}%</Detail>

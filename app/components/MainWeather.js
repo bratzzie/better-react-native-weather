@@ -8,7 +8,7 @@ const MainWeather = ({ forecast }) => {
   return (
     <Container>
       <Wrapper>
-        <Location>Zaporizhzhia</Location>
+        <Location>{/[^/]*$/.exec(`${forecast.timezone}`)[0]}</Location>
         <Row>
           <Temp>{Math.round(forecast.current.temp)}</Temp>
           <Symb>°C</Symb>
@@ -63,6 +63,6 @@ const Symb = styled.Text`
   color: #fff;
   font-weight: 600;
   font-size: 30px;
-  transform: translate(0px, 35px);
+  transform: translate(5px, 35px);
   text-align: center;
 `;

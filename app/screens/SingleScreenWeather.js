@@ -5,15 +5,28 @@ import {
   Alert,
   SafeAreaView,
   ActivityIndicator,
+  ImageBackground,
+  RefreshControl,
 } from "react-native";
 import styled from "styled-components/native";
 import SingleFuture from "../components/SingleFuture";
 import SingleHour from "../components/SingleHour";
 import SingleWidget from "../components/SingleWidget";
 import { WEATHER_API_KEY } from "@env";
+import Theme from "../styles/Theme";
+import { ScrollView } from "react-native-gesture-handler";
+
+import clouds from "../../assets/weather/Clouds.jpg";
+import rain from "../../assets/weather/Rain.jpg";
+import clear from "../../assets/weather/Clear.jpg";
+import drizzle from "../../assets/weather/Drizzle.jpg";
+import haze from "../../assets/weather/Haze.jpg";
+import mist from "../../assets/weather/mist.jpg";
+import snow from "../../assets/weather/snow.jpg";
+import thunder from "../../assets/weather/thunderstorm.jpg";
 let url = `https://api.openweathermap.org/data/2.5/onecall?&units=metric&appid=${WEATHER_API_KEY}`;
 const SingleScreenWeather = ({ route, navigation }) => {
-  const { itemId } = route.params;
+
   const { dataParam } = route.params;
   const [refreshing, setRefreshing] = useState(false);
   const [forecast, setForecast] = useState(null);
@@ -48,21 +61,72 @@ const SingleScreenWeather = ({ route, navigation }) => {
       </SafeAreaView>
     );
   }
+  const current = forecast.current.weather[0];
+  const back = () => {
+    if (typeof current.main != "undefined") {
+      switch (current.main) {
+        case "Clouds":
+          return clouds;
+          break;
+        case "Clear":
+          return clear;
+          break;
+        case "Rain":
+          return rain;
+          break;
+        case "Snow":
+          return snow;
+          break;
+        case "Thunderstorm":
+          return thunder;
+          break;
+        case "Drizzle":
+          return drizzle;
+          break;
+        case "Haze":
+          return haze;
+          break;
+        case "Mist":
+          return mist;
+          break;
 
+        default:
+          return clear;
+          break;
+      }
+    }
+  };
   return (
+    <Theme>
+    <ImageBackground source={back()} style={{ flex: 1,
+       alignItems: "center",
+      justifyContent: "flex-start",}}>
+  <SafeAreaView style={{ backgroundColor: "rgba(0,0,0, 0.4)"}}>
+       <ScrollView
+        refreshControl={
+          <RefreshControl
+            onRefresh={() => {  loadForecast() }}
+            refreshing={refreshing}
+          />}
+        >
     <Container>
       <Wrapper>
         <Location>{dataParam.name}</Location>
         <Row>
-          <Temp>{JSON.stringify(itemId)}</Temp>
+          <Temp>{Math.round(JSON.stringify(dataParam.main.temp))}</Temp>
           <Symb>°C</Symb>
         </Row>
-        <WeatherName>{JSON.stringify(dataParam.weather[0].main)}</WeatherName>
+        <WeatherName>{dataParam.weather[0].main}</WeatherName>
       </Wrapper>
       <SingleFuture anotherForecast={forecast} />
       <SingleHour anotherForecast={forecast} />
       <SingleWidget forecast={dataParam} />
     </Container>
+    </ScrollView>
+        
+        </SafeAreaView>
+        </ImageBackground>
+      </Theme>
   );
 };
 

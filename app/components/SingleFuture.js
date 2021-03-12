@@ -56,7 +56,7 @@ const SingleFuture = ({ anotherForecast }) => {
 
 export default SingleFuture;
 const Container = styled.View`
-  flex: 0.4;
+
   background-color: transparent;
   padding: 50px 20px;
   justify-content: center;

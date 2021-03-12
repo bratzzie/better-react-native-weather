@@ -1,4 +1,5 @@
 import {
+  Button,
   FlatList,
   ImageBackground,
   Keyboard,
@@ -39,6 +40,9 @@ import Navigator from "./app/components/Navigator";
 import SingleScreenWeather from "./app/screens/SingleScreenWeather";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import LocationBasedWeatherScreen from "./app/screens/LocationBasedWeatherScreen";
+import { AntDesign } from '@expo/vector-icons';
+import SettingsScreen from "./app/screens/SettingsScreen";
 
 let url = `https://api.openweathermap.org/data/2.5/onecall?&units=metric&appid=${WEATHER_API_KEY}`;
 const Stack = createStackNavigator();
@@ -122,28 +126,46 @@ const App = () => {
     }
   };
   return (
-    <Theme>
-      <ImageBackground
-        source={back()}
-        style={{ height: "100%", width: "100%" }}
-      >
-        <NavigationContainer>
+         <NavigationContainer>
           <Stack.Navigator>
-            <Stack.Screen name="Home" component={ManageLocation} />
-            <Stack.Screen name="Details" component={SingleScreenWeather} />
+            <Stack.Screen name="Home" component={LocationBasedWeatherScreen}
+            options={({ navigation}) => ({
+              title: '',
+              headerTransparent: true,
+              headerTitleStyle: { marginHorizontal: 'auto' },
+              headerLeft: () => (
+                <AntDesign name="plus" size={24} color="#fff" 
+                style={{paddingLeft: 30}} onPress={() => navigation.navigate('Manage')}/>
+               
+              ),
+              headerRight: () => (
+                <AntDesign name="bars" size={24} color="#fff"
+                style={{paddingRight: 30}} onPress={() => navigation.navigate('Settings')}/>
+              )
+            })}/>
+            <Stack.Screen name="Manage" component={ManageLocation} 
+            options={{ title: '',
+            headerTransparent: true,}}/>
+            <Stack.Screen name="Details" options={{
+               title: '',
+            headerTransparent: true,
+           
+            }} component={SingleScreenWeather} />
+            <Stack.Screen name="Settings" options={{title: '', headerTransparent: true}} component={SettingsScreen}/>
           </Stack.Navigator>
         </NavigationContainer>
-      </ImageBackground>
-    </Theme>
+    
   );
 };
+
+export default App;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0, 0.4)",
-    alignItems: "center",
+     alignItems: "center",
     justifyContent: "flex-start",
+    paddingTop: Platform.OS === 'ios' ? 60 : 80
   },
   loading: {
     flex: 1,
@@ -151,9 +173,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  overlay:{
+    backgroundColor: "rgba(0,0,0, 0.4)",
+     
+  }
 });
 
-export default App;
 //<Theme>
 //
 //     <View style={styles.container}>

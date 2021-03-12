@@ -1,21 +1,19 @@
 //first consumer
 import React from "react";
 import { Button, Text, View } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
+import { FlatList, ScrollView, TouchableHighlight, TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { WeatherContext } from "../screens/ManageLocation";
 import styled from "styled-components/native";
 function List({ navigation }) {
   const context = React.useContext(WeatherContext);
   return (
-    <View style={{ padding: 20 }}>
+    <View style={{ flex: 1 }}>
       <FlatList
-        style={{
-          width: "100%",
-          height: "100%",
-        }}
+      style={{paddingHorizontal: 20, paddingBottom: 20}}
+      showsVerticalScrollIndicator={false}
+  showsHorizontalScrollIndicator={false}
         vertical
-        showsHorizontalScrollIndicator={false}
-        data={context.cities}
+         data={context.cities}
         keyExtractor={(item, index) => index.toString()}
         renderItem={(city) => {
           const backColor = () => {
@@ -50,7 +48,14 @@ function List({ navigation }) {
             }
           };
           return (
-            <Card style={{ backgroundColor: `${backColor()}` }}>
+            <TouchableHighlight style={{borderRadius: 20,   marginBottom: 8,
+              marginTop: 8}}onPress={() => {
+                    navigation.navigate("Details", {
+                     dataParam: city.item.data,
+                    });
+                  }}>
+            <Card  
+                  style={{ backgroundColor: `${backColor()}` }}>
               <Column>
                 <Location>{city.item.name}</Location>
                 <Row>
@@ -60,18 +65,12 @@ function List({ navigation }) {
                     / {Math.round(city.item.data.main.temp_max)}°
                   </MinMax>
                 </Row>
-                <Button
-                  title="Go to Blog Details"
-                  onPress={() => {
-                    navigation.navigate("Details", {
-                      itemId: 86,
-                      dataParam: city.item.data,
-                    });
-                  }}
-                />
+                
               </Column>
               <Temp>{Math.round(city.item.temperature)}°</Temp>
             </Card>
+
+            </TouchableHighlight>
           );
         }}
       />
@@ -87,8 +86,7 @@ const Card = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 8px;
-  margin-top: 8px;
+
   padding: 20px;
 `;
 const Row = styled.View`
@@ -99,6 +97,7 @@ const Location = styled.Text`
   color: #fff;
   font-weight: 600;
   font-size: 20px;
+  text-transform: capitalize;
 `;
 
 const Temp = styled.Text`
