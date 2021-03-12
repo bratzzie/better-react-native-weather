@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, FlatList, Image } from "react-native";
 import styled from "styled-components/native";
+import { AntDesign } from "@expo/vector-icons";
 
 const SingleHour = ({ anotherForecast }) => {
   return (
@@ -15,6 +16,17 @@ const SingleHour = ({ anotherForecast }) => {
           let dt = new Date(hour.item.dt * 1000);
           const hours = dt.getHours();
           const minutes = dt.getMinutes();
+          const arrow = () => {
+            if (0 < hour.item.wind_deg && hour.item.wind_deg <= 90) {
+              return "caretup";
+            } else if (90 < hour.item.wind_deg && hour.item.wind_deg <= 180) {
+              return "caretright";
+            } else if (180 < hour.item.wind_deg && hour.item.wind_deg <= 270) {
+              return "caretdown";
+            } else if (180 < hour.item.wind_deg && hour.item.wind_deg <= 400) {
+              return "caretright";
+            }
+          };
           return (
             <HourCard>
               <Time>
@@ -27,7 +39,10 @@ const SingleHour = ({ anotherForecast }) => {
                   uri: `http://openweathermap.org/img/wn/${weather.icon}@4x.png`,
                 }}
               />
-              <Wind>{Math.round(hour.item.wind_speed * 10) / 10} km/h</Wind>
+              <Row>
+                <AntDesign name={arrow()} size={10} color="#fff" />
+                <Wind> {Math.round(hour.item.wind_speed * 10) / 10} m/s</Wind>
+              </Row>
             </HourCard>
           );
         }}
@@ -47,6 +62,10 @@ const Time = styled.Text`
   color: #fff;
 `;
 
+const Row = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
 const Temp = styled.Text`
   font-weight: 600;
   color: #fff;

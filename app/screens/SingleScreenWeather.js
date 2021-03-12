@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  View,
-  Text,
   Alert,
   SafeAreaView,
   ActivityIndicator,
@@ -26,7 +24,6 @@ import snow from "../../assets/weather/snow.jpg";
 import thunder from "../../assets/weather/thunderstorm.jpg";
 let url = `https://api.openweathermap.org/data/2.5/onecall?&units=metric&appid=${WEATHER_API_KEY}`;
 const SingleScreenWeather = ({ route, navigation }) => {
-
   const { dataParam } = route.params;
   const [refreshing, setRefreshing] = useState(false);
   const [forecast, setForecast] = useState(null);
@@ -98,35 +95,38 @@ const SingleScreenWeather = ({ route, navigation }) => {
   };
   return (
     <Theme>
-    <ImageBackground source={back()} style={{ flex: 1,
-       alignItems: "center",
-      justifyContent: "flex-start",}}>
-  <SafeAreaView style={{ backgroundColor: "rgba(0,0,0, 0.4)"}}>
-       <ScrollView
-        refreshControl={
-          <RefreshControl
-            onRefresh={() => {  loadForecast() }}
-            refreshing={refreshing}
-          />}
-        >
-    <Container>
-      <Wrapper>
-        <Location>{dataParam.name}</Location>
-        <Row>
-          <Temp>{Math.round(JSON.stringify(dataParam.main.temp))}</Temp>
-          <Symb>°C</Symb>
-        </Row>
-        <WeatherName>{dataParam.weather[0].main}</WeatherName>
-      </Wrapper>
-      <SingleFuture anotherForecast={forecast} />
-      <SingleHour anotherForecast={forecast} />
-      <SingleWidget forecast={dataParam} />
-    </Container>
-    </ScrollView>
-        
+      <ImageBackground
+        source={back()}
+        style={{ flex: 1, alignItems: "center", justifyContent: "flex-start" }}
+      >
+        <SafeAreaView style={{ backgroundColor: "rgba(0,0,0, 0.4)" }}>
+          <ScrollView
+            refreshControl={
+              <RefreshControl
+                onRefresh={() => {
+                  loadForecast();
+                }}
+                refreshing={refreshing}
+              />
+            }
+          >
+            <Container>
+              <Wrapper>
+                <Location>{dataParam.name}</Location>
+                <Row>
+                  <Temp>{Math.round(JSON.stringify(dataParam.main.temp))}</Temp>
+                  <Symb>°C</Symb>
+                </Row>
+                <WeatherName>{dataParam.weather[0].main}</WeatherName>
+              </Wrapper>
+              <SingleFuture anotherForecast={forecast} />
+              <SingleHour anotherForecast={forecast} />
+              <SingleWidget forecast={dataParam} />
+            </Container>
+          </ScrollView>
         </SafeAreaView>
-        </ImageBackground>
-      </Theme>
+      </ImageBackground>
+    </Theme>
   );
 };
 

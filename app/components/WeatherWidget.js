@@ -1,15 +1,11 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import {Text, Image } from "react-native";
 import styled from "styled-components/native";
 
 import sunrise from "../../assets/weather_icons/sunrise.png";
 import sunset from "../../assets/weather_icons/sunset.png";
 
 const WeatherWidget = ({ forecast }) => {
-  let dt = new Date(forecast.current.sunrise * 1000);
-  const hours = dt.getHours();
-  const minutes = dt.getMinutes();
-
   return (
     <Wrapper>
       <Text></Text>
@@ -22,12 +18,12 @@ const WeatherWidget = ({ forecast }) => {
           })}
         </Sun>
         <Title>Real feel</Title>
-        <Detail>{forecast.current.feels_like}°C</Detail>
+        <Detail>{Math.round(forecast.current.feels_like)}°C</Detail>
 
         <Title>Clouds</Title>
         <Detail>{forecast.current.clouds}%</Detail>
         <Title>Wind speed</Title>
-        <Detail>{forecast.current.wind_speed}km/h</Detail>
+        <Detail>{forecast.current.wind_speed}m/s</Detail>
       </Column>
 
       <Column>
@@ -66,6 +62,7 @@ const Wrapper = styled.View`
   flex-wrap: wrap;
   flex-direction: row;
   margin-bottom: 10px;
+  margin-top: 15px;
 `;
 
 const Column = styled.View`

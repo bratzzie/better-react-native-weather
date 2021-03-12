@@ -83,12 +83,12 @@ padding: 20px;`
 const Container = styled.View`
   position: relative;
   width: 300px;
-  background-color: gray;
+  background-color: #d1d4de;
   border-radius: 30px;
  
   justify-content: center;
   align-items: center;
-  margin-top: 30px;
+  margin-top: 10px;
 `;
 
 const Title = styled.Text`

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { Text, Image } from "react-native";
 import styled from "styled-components/native";
 
 import sunrise from "../../assets/weather_icons/sunrise.png";
@@ -62,6 +62,7 @@ const Wrapper = styled.View`
   flex-wrap: wrap;
   flex-direction: row;
   margin-bottom: 10px;
+  margin-top: 15px;
 `;
 
 const Column = styled.View`

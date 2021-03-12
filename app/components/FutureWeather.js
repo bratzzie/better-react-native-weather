@@ -1,7 +1,7 @@
 import React from "react";
-import { View, Text, TextInput, Image, TouchableOpacity } from "react-native";
+import { Image} from "react-native";
 import styled from "styled-components/native";
-import photo from "../../assets/weather_icons/cloud.png";
+
 const FutureWeather = ({ forecast }) => {
   let days = [
     "Sunday",
@@ -38,9 +38,7 @@ const FutureWeather = ({ forecast }) => {
         );
       })}
 
-      {/* <TouchableOpacity>
-              <Text>5-day forecast</Text>
-          </TouchableOpacity> */}
+    
     </Container>
   );
 };
@@ -50,6 +48,7 @@ const Container = styled.View`
   flex: 0.4;
   background-color: transparent;
   padding: 50px 20px;
+  padding-bottom: 20px;
   justify-content: center;
 `;
 

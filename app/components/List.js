@@ -1,7 +1,9 @@
 //first consumer
 import React from "react";
-import { Button, Text, View } from "react-native";
-import { FlatList, ScrollView, TouchableHighlight, TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { View } from "react-native";
+import {
+  FlatList,
+  TouchableHighlight} from "react-native-gesture-handler";
 import { WeatherContext } from "../screens/ManageLocation";
 import styled from "styled-components/native";
 function List({ navigation }) {
@@ -9,11 +11,11 @@ function List({ navigation }) {
   return (
     <View style={{ flex: 1 }}>
       <FlatList
-      style={{paddingHorizontal: 20, paddingBottom: 20}}
-      showsVerticalScrollIndicator={false}
-  showsHorizontalScrollIndicator={false}
+        style={{ paddingHorizontal: 20, paddingBottom: 20 }}
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
         vertical
-         data={context.cities}
+        data={context.cities}
         keyExtractor={(item, index) => index.toString()}
         renderItem={(city) => {
           const backColor = () => {
@@ -28,7 +30,7 @@ function List({ navigation }) {
                 return "#0099BF";
                 break;
               case "Snow":
-                return "#E6F4F1";
+                return "#ccdcde";
                 break;
               case "Thunderstorm":
                 return "#8F67B3";
@@ -48,28 +50,27 @@ function List({ navigation }) {
             }
           };
           return (
-            <TouchableHighlight style={{borderRadius: 20,   marginBottom: 8,
-              marginTop: 8}}onPress={() => {
-                    navigation.navigate("Details", {
-                     dataParam: city.item.data,
-                    });
-                  }}>
-            <Card  
-                  style={{ backgroundColor: `${backColor()}` }}>
-              <Column>
-                <Location>{city.item.name}</Location>
-                <Row>
-                  <MinMax>{Math.round(city.item.data.main.temp_min)}°</MinMax>
-                  <MinMax>
-                    {" "}
-                    / {Math.round(city.item.data.main.temp_max)}°
-                  </MinMax>
-                </Row>
-                
-              </Column>
-              <Temp>{Math.round(city.item.temperature)}°</Temp>
-            </Card>
-
+            <TouchableHighlight
+              style={{ borderRadius: 20, marginBottom: 8, marginTop: 8 }}
+              onPress={() => {
+                navigation.navigate("Details", {
+                  dataParam: city.item.data,
+                });
+              }}
+            >
+              <Card style={{ backgroundColor: `${backColor()}` }}>
+                <Column>
+                  <Location>{city.item.name}</Location>
+                  <Row>
+                    <MinMax>{Math.round(city.item.data.main.temp_min)}°</MinMax>
+                    <MinMax>
+                      {" "}
+                      / {Math.round(city.item.data.main.temp_max)}°
+                    </MinMax>
+                  </Row>
+                </Column>
+                <Temp>{Math.round(city.item.temperature)}°</Temp>
+              </Card>
             </TouchableHighlight>
           );
         }}

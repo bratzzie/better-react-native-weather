@@ -1,13 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
-  View,
-  Text,
-  TextInput,
   Image,
-  TouchableOpacity,
-  Alert,
-  ActivityIndicator,
-  SafeAreaView,
 } from "react-native";
 import styled from "styled-components/native";
 
@@ -47,19 +40,16 @@ const SingleFuture = ({ anotherForecast }) => {
         );
       })}
 
-      {/* <TouchableOpacity>
-              <Text>5-day forecast</Text>
-          </TouchableOpacity> */}
     </Container>
   );
 };
 
 export default SingleFuture;
 const Container = styled.View`
-
   background-color: transparent;
   padding: 50px 20px;
   justify-content: center;
+  padding-bottom: 20px;
 `;
 
 const WeatherDay = styled.View`
